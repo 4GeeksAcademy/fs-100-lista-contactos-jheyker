@@ -3,6 +3,8 @@ const ContactService = {}
 ContactService.getAgenda = async (nombreAgenda) => {
     try {
         const resp = await fetch(`https://playground.4geeks.com/contact/agendas/${nombreAgenda}`)
+        if (!resp.ok)
+            return ContactService.crearAgenda(nombreAgenda)
         const data = await resp.json()
         return data
     }
@@ -10,9 +12,9 @@ ContactService.getAgenda = async (nombreAgenda) => {
         console.log(error);
     }
 }
-ContactService.crearAgenda = async () => {
+ContactService.crearAgenda = async (nombreAgenda) => {
     try {
-        const resp = await fetch(`https://playground.4geeks.com/contact/agendas/Ramon`, {
+        const resp = await fetch(`https://playground.4geeks.com/contact/agendas/${nombreAgenda}`, {
             method : 'POST',
             headers: {
                 'Content-Type': 'application/json',
